@@ -1,0 +1,106 @@
+.TH "D:/GIT_DEV/2011_HiTech/KeyboardR/kb.c" 3 "Mon Mar 28 2011" "Version 0.7" "Human Interface Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+D:/GIT_DEV/2011_HiTech/KeyboardR/kb.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'define.h'\fP
+.br
+\fC#include 'scancodes.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPORT_CLK\fP   PORTD"
+.br
+.ti -1c
+.RI "#define \fBPORT_DATA\fP   PORTB"
+.br
+.ti -1c
+.RI "#define \fBPIN_CLK\fP   PIND"
+.br
+.ti -1c
+.RI "#define \fBPIN_DATA\fP   PINB"
+.br
+.ti -1c
+.RI "#define \fBP_CLK\fP   PD2"
+.br
+.ti -1c
+.RI "#define \fBP_DATA\fP   PB6"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBkb_init\fP (void)"
+.br
+.ti -1c
+.RI "void \fBkb_decode\fP (unsigned char sc)"
+.br
+.ti -1c
+.RI "\fBISR\fP (INT0_vect)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "_Bool \fBedge\fP = 0"
+.br
+.ti -1c
+.RI "char \fBbitcount\fP = 11"
+.br
+.ti -1c
+.RI "char \fBconv_str\fP [10]"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define P_CLK   PD2"
+.PP
+Definition at line 8 of file kb.c.
+.SS "#define P_DATA   PB6"
+.PP
+Definition at line 9 of file kb.c.
+.SS "#define PIN_CLK   PIND"
+.PP
+Definition at line 6 of file kb.c.
+.SS "#define PIN_DATA   PINB"
+.PP
+Definition at line 7 of file kb.c.
+.SS "#define PORT_CLK   PORTD"
+.PP
+Definition at line 4 of file kb.c.
+.SS "#define PORT_DATA   PORTB"
+.PP
+Definition at line 5 of file kb.c.
+.SH "Function Documentation"
+.PP 
+.SS "ISR (INT0_vect)"
+.PP
+Definition at line 102 of file kb.c.
+.SS "void kb_decode (unsigned charsc)"
+.PP
+Definition at line 27 of file kb.c.
+.SS "void kb_init (void)"
+.PP
+Definition at line 15 of file kb.c.
+.SH "Variable Documentation"
+.PP 
+.SS "char \fBbitcount\fP = 11"
+.PP
+Definition at line 12 of file kb.c.
+.SS "char \fBconv_str\fP[10]"
+.PP
+Definition at line 13 of file kb.c.
+.SS "_Bool \fBedge\fP = 0"
+.PP
+Definition at line 11 of file kb.c.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Human Interface Project from the source code.

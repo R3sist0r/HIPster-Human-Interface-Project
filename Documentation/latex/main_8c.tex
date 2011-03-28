@@ -1,0 +1,73 @@
+\hypertarget{main_8c}{
+\section{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/main.c File Reference}
+\label{main_8c}\index{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/main.c@{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/main.c}}
+}
+
+
+HIPster: Human Interface Project .:. Controlling an RGB LED with a PS/2 keyboard.  
+
+
+{\ttfamily \#include \char`\"{}define.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8c_ac2a3b2c7f1e4975e9080f9f4df57fb84}{init\_\-all} ()
+\begin{DoxyCompactList}\small\item\em A function which initialises all required hardware. \item\end{DoxyCompactList}\item 
+int \hyperlink{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\begin{DoxyCompactList}\small\item\em The \hyperlink{define_8h_a840291bc02cba5474a4cb46a9b9566fe}{main()} function of the program. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+HIPster: Human Interface Project .:. Controlling an RGB LED with a PS/2 keyboard. \begin{DoxyAuthor}{Author}
+(c)2011 Reuben Posthuma
+\end{DoxyAuthor}
+HIPster is a study on various human interface devices. A number of different interface modules have been created, and they all are designed to perform one simple task: controlling the color and intensity of an RGB LED. This provides a consistent benchmark, with the aim of finding the most natural human-\/device interaction method. 
+
+Definition in file \hyperlink{main_8c_source}{main.c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{main_8c_ac2a3b2c7f1e4975e9080f9f4df57fb84}{
+\index{main.c@{main.c}!init\_\-all@{init\_\-all}}
+\index{init\_\-all@{init\_\-all}!main.c@{main.c}}
+\subsubsection[{init\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\-all (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{main_8c_ac2a3b2c7f1e4975e9080f9f4df57fb84}
+
+
+A function which initialises all required hardware. 
+
+\hyperlink{define_8h_ad70f49ad8fe296283f2a1e799dc418d7}{init\_\-all()} calls further functions to set up low-\/level hardware. It also prints a string on the UART port to show that the system has booted correctly
+
+Initialisation sequence:
+\begin{DoxyItemize}
+\item Initialise the uart serial port
+\item Initialise the keyboard interrupt hardware
+\item Initialise the pwm module hardware for control of the RGB LED
+\item Send a string through the serial port to show that the system has booted correctly
+\item Enable global interrupts 
+\end{DoxyItemize}
+
+Definition at line 32 of file main.c.
+
+\hypertarget{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}
+
+
+The \hyperlink{define_8h_a840291bc02cba5474a4cb46a9b9566fe}{main()} function of the program. 
+
+Since the keyboard control of the RGB LED is entirely interrupt-\/driven, once the \hyperlink{define_8h_ad70f49ad8fe296283f2a1e799dc418d7}{init\_\-all()} routine has been called, the main routine is only an infinite loop. 
+
+Definition at line 47 of file main.c.
+

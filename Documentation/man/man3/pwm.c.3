@@ -1,0 +1,205 @@
+.TH "D:/GIT_DEV/2011_HiTech/KeyboardR/pwm.c" 3 "Mon Mar 28 2011" "Version 0.7" "Human Interface Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+D:/GIT_DEV/2011_HiTech/KeyboardR/pwm.c \- 
+.PP
+This file handles low level control of the pwm modules of the AVR, as well as implementing functions to send commands to the RGB LED.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'define.h'\fP
+.br
+\fC#include 'led.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBINCREASE\fP   20"
+.br
+.RI "\fIThis variable controls the step size of each brightness up/down recursion. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBpwm_init\fP (void)"
+.br
+.RI "\fIA function which initialises the pwm module of the AVR. \fP"
+.ti -1c
+.RI "void \fBpwm_sendColor\fP (int red, int green, int blue)"
+.br
+.RI "\fIA function which effectively creates any colour on the RGB LED, sent in RGB notation. \fP"
+.ti -1c
+.RI "void \fBpwm_incRed\fP (void)"
+.br
+.RI "\fIIncrement the red LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_decRed\fP (void)"
+.br
+.RI "\fIDecrement the red LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_incGreen\fP (void)"
+.br
+.RI "\fIIncrement the green LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_decGreen\fP (void)"
+.br
+.RI "\fIDecrement the green LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_incBlue\fP (void)"
+.br
+.RI "\fIIncrement the blue LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_decBlue\fP (void)"
+.br
+.RI "\fIDecrement the blue LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_change\fP (char kbchar)"
+.br
+.RI "\fIAct on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char \fBconv_str\fP [10]"
+.br
+.RI "\fIVariable used for string conversions during debugging. \fP"
+.ti -1c
+.RI "char \fBredR\fP = 0"
+.br
+.RI "\fIVariable to hold the brightness of the red LED. \fP"
+.ti -1c
+.RI "char \fBgreenR\fP = 0xFF"
+.br
+.RI "\fIVariable to hold the brightness of the green LED (0xFF, as that register is inverse) \fP"
+.ti -1c
+.RI "char \fBblueR\fP = 0xFF"
+.br
+.RI "\fIVariable to hold the brightness of the blue LED (0xFF, as that register is inverse) \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+This file handles low level control of the pwm modules of the AVR, as well as implementing functions to send commands to the RGB LED. 
+
+\fBAuthor:\fP
+.RS 4
+(c)2011 Reuben Posthuma 
+.RE
+.PP
+
+.PP
+Definition in file \fBpwm.c\fP.
+.SH "Define Documentation"
+.PP 
+.SS "#define INCREASE   20"
+.PP
+This variable controls the step size of each brightness up/down recursion. 
+.PP
+Definition at line 18 of file pwm.c.
+.SH "Function Documentation"
+.PP 
+.SS "void pwm_change (charkbchar)"
+.PP
+Act on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. \fBParameters:\fP
+.RS 4
+\fIkbchar\fP The processed character recieved from the keyboard 
+.RE
+.PP
+
+.PP
+Definition at line 171 of file pwm.c.
+.SS "void pwm_decBlue (void)"
+.PP
+Decrement the blue LED by the value set in INCREASE. 
+.PP
+Definition at line 155 of file pwm.c.
+.SS "void pwm_decGreen (void)"
+.PP
+Decrement the green LED by the value set in INCREASE. 
+.PP
+Definition at line 131 of file pwm.c.
+.SS "void pwm_decRed (void)"
+.PP
+Decrement the red LED by the value set in INCREASE. Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+.PP
+Definition at line 107 of file pwm.c.
+.SS "void pwm_incBlue (void)"
+.PP
+Increment the blue LED by the value set in INCREASE. 
+.PP
+Definition at line 143 of file pwm.c.
+.SS "void pwm_incGreen (void)"
+.PP
+Increment the green LED by the value set in INCREASE. 
+.PP
+Definition at line 119 of file pwm.c.
+.SS "void pwm_incRed (void)"
+.PP
+Increment the red LED by the value set in INCREASE. Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+.PP
+Definition at line 91 of file pwm.c.
+.SS "void pwm_init (void)"
+.PP
+A function which initialises the pwm module of the AVR. \fBpwm_init()\fP sets up the required AVR registers, including setting outputs, and setting PWM modes. It then turns the RGB LED off.
+.PP
+Initialisation sequence:
+.IP "\(bu" 2
+Set all pins as outputs
+.IP "\(bu" 2
+Set up each timer for PWM mode
+.IP "  1." 6
+Non-inverting PWM mode
+.IP "  2." 6
+Fast PWM mode
+.IP "  3." 6
+Select the clock source as un-prescaled 
+.PP
+
+.PP
+
+.PP
+Definition at line 46 of file pwm.c.
+.SS "void pwm_sendColor (intred, intgreen, intblue)"
+.PP
+A function which effectively creates any colour on the RGB LED, sent in RGB notation. \fBParameters:\fP
+.RS 4
+\fIred\fP The red value (0-255) to send to the LED 
+.br
+\fIgreen\fP The red value (0-255) to send to the LED 
+.br
+\fIblue\fP The red value (0-255) to send to the LED 
+.RE
+.PP
+
+.PP
+Definition at line 75 of file pwm.c.
+.SH "Variable Documentation"
+.PP 
+.SS "char \fBblueR\fP = 0xFF"
+.PP
+Variable to hold the brightness of the blue LED (0xFF, as that register is inverse) 
+.PP
+Definition at line 30 of file pwm.c.
+.SS "char \fBconv_str\fP[10]"
+.PP
+Variable used for string conversions during debugging. 
+.PP
+Definition at line 21 of file pwm.c.
+.SS "char \fBgreenR\fP = 0xFF"
+.PP
+Variable to hold the brightness of the green LED (0xFF, as that register is inverse) 
+.PP
+Definition at line 27 of file pwm.c.
+.SS "char \fBredR\fP = 0"
+.PP
+Variable to hold the brightness of the red LED. 
+.PP
+Definition at line 24 of file pwm.c.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Human Interface Project from the source code.

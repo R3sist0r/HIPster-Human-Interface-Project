@@ -1,0 +1,168 @@
+\hypertarget{kb_8c}{
+\section{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/kb.c File Reference}
+\label{kb_8c}\index{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/kb.c@{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/kb.c}}
+}
+{\ttfamily \#include \char`\"{}define.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}scancodes.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kb_8c_aac9ce46b23112eb2f4dd5a727067007d}{PORT\_\-CLK}~PORTD
+\item 
+\#define \hyperlink{kb_8c_adbd8974ceec8712d992ff81a1deeec2f}{PORT\_\-DATA}~PORTB
+\item 
+\#define \hyperlink{kb_8c_a29e4cd8304fdcdd2e715189dfaaf31c2}{PIN\_\-CLK}~PIND
+\item 
+\#define \hyperlink{kb_8c_a573681f817f1ec4eca69d66cd687236d}{PIN\_\-DATA}~PINB
+\item 
+\#define \hyperlink{kb_8c_a49d85c6db871133301f49970696ac149}{P\_\-CLK}~PD2
+\item 
+\#define \hyperlink{kb_8c_a9902fb378ea3b4ed8c1100bfe4641eaf}{P\_\-DATA}~PB6
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{kb_8c_aabdb223e5290f3b3c07bc82d075b87d7}{kb\_\-init} (void)
+\item 
+void \hyperlink{kb_8c_a21c5cac5dd3aef37ed5158c09b109c1e}{kb\_\-decode} (unsigned char sc)
+\item 
+\hyperlink{kb_8c_afea150fcd685610cb9f7672fce361e53}{ISR} (INT0\_\-vect)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\_\-Bool \hyperlink{kb_8c_a38030c97efa32e38584763531f956734}{edge} = 0
+\item 
+char \hyperlink{kb_8c_af24259e6706d7b5814b544d30c4c32d3}{bitcount} = 11
+\item 
+char \hyperlink{kb_8c_ab9604b0aa3f2cf9a1f0df678d9124cf6}{conv\_\-str} \mbox{[}10\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{kb_8c_a49d85c6db871133301f49970696ac149}{
+\index{kb.c@{kb.c}!P\_\-CLK@{P\_\-CLK}}
+\index{P\_\-CLK@{P\_\-CLK}!kb.c@{kb.c}}
+\subsubsection[{P\_\-CLK}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\_\-CLK~PD2}}
+\label{kb_8c_a49d85c6db871133301f49970696ac149}
+
+
+Definition at line 8 of file kb.c.
+
+\hypertarget{kb_8c_a9902fb378ea3b4ed8c1100bfe4641eaf}{
+\index{kb.c@{kb.c}!P\_\-DATA@{P\_\-DATA}}
+\index{P\_\-DATA@{P\_\-DATA}!kb.c@{kb.c}}
+\subsubsection[{P\_\-DATA}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\_\-DATA~PB6}}
+\label{kb_8c_a9902fb378ea3b4ed8c1100bfe4641eaf}
+
+
+Definition at line 9 of file kb.c.
+
+\hypertarget{kb_8c_a29e4cd8304fdcdd2e715189dfaaf31c2}{
+\index{kb.c@{kb.c}!PIN\_\-CLK@{PIN\_\-CLK}}
+\index{PIN\_\-CLK@{PIN\_\-CLK}!kb.c@{kb.c}}
+\subsubsection[{PIN\_\-CLK}]{\setlength{\rightskip}{0pt plus 5cm}\#define PIN\_\-CLK~PIND}}
+\label{kb_8c_a29e4cd8304fdcdd2e715189dfaaf31c2}
+
+
+Definition at line 6 of file kb.c.
+
+\hypertarget{kb_8c_a573681f817f1ec4eca69d66cd687236d}{
+\index{kb.c@{kb.c}!PIN\_\-DATA@{PIN\_\-DATA}}
+\index{PIN\_\-DATA@{PIN\_\-DATA}!kb.c@{kb.c}}
+\subsubsection[{PIN\_\-DATA}]{\setlength{\rightskip}{0pt plus 5cm}\#define PIN\_\-DATA~PINB}}
+\label{kb_8c_a573681f817f1ec4eca69d66cd687236d}
+
+
+Definition at line 7 of file kb.c.
+
+\hypertarget{kb_8c_aac9ce46b23112eb2f4dd5a727067007d}{
+\index{kb.c@{kb.c}!PORT\_\-CLK@{PORT\_\-CLK}}
+\index{PORT\_\-CLK@{PORT\_\-CLK}!kb.c@{kb.c}}
+\subsubsection[{PORT\_\-CLK}]{\setlength{\rightskip}{0pt plus 5cm}\#define PORT\_\-CLK~PORTD}}
+\label{kb_8c_aac9ce46b23112eb2f4dd5a727067007d}
+
+
+Definition at line 4 of file kb.c.
+
+\hypertarget{kb_8c_adbd8974ceec8712d992ff81a1deeec2f}{
+\index{kb.c@{kb.c}!PORT\_\-DATA@{PORT\_\-DATA}}
+\index{PORT\_\-DATA@{PORT\_\-DATA}!kb.c@{kb.c}}
+\subsubsection[{PORT\_\-DATA}]{\setlength{\rightskip}{0pt plus 5cm}\#define PORT\_\-DATA~PORTB}}
+\label{kb_8c_adbd8974ceec8712d992ff81a1deeec2f}
+
+
+Definition at line 5 of file kb.c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{kb_8c_afea150fcd685610cb9f7672fce361e53}{
+\index{kb.c@{kb.c}!ISR@{ISR}}
+\index{ISR@{ISR}!kb.c@{kb.c}}
+\subsubsection[{ISR}]{\setlength{\rightskip}{0pt plus 5cm}ISR (
+\begin{DoxyParamCaption}
+\item[{INT0\_\-vect}]{}
+\end{DoxyParamCaption}
+)}}
+\label{kb_8c_afea150fcd685610cb9f7672fce361e53}
+
+
+Definition at line 102 of file kb.c.
+
+\hypertarget{kb_8c_a21c5cac5dd3aef37ed5158c09b109c1e}{
+\index{kb.c@{kb.c}!kb\_\-decode@{kb\_\-decode}}
+\index{kb\_\-decode@{kb\_\-decode}!kb.c@{kb.c}}
+\subsubsection[{kb\_\-decode}]{\setlength{\rightskip}{0pt plus 5cm}void kb\_\-decode (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{sc}
+\end{DoxyParamCaption}
+)}}
+\label{kb_8c_a21c5cac5dd3aef37ed5158c09b109c1e}
+
+
+Definition at line 27 of file kb.c.
+
+\hypertarget{kb_8c_aabdb223e5290f3b3c07bc82d075b87d7}{
+\index{kb.c@{kb.c}!kb\_\-init@{kb\_\-init}}
+\index{kb\_\-init@{kb\_\-init}!kb.c@{kb.c}}
+\subsubsection[{kb\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void kb\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{kb_8c_aabdb223e5290f3b3c07bc82d075b87d7}
+
+
+Definition at line 15 of file kb.c.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{kb_8c_af24259e6706d7b5814b544d30c4c32d3}{
+\index{kb.c@{kb.c}!bitcount@{bitcount}}
+\index{bitcount@{bitcount}!kb.c@{kb.c}}
+\subsubsection[{bitcount}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf bitcount} = 11}}
+\label{kb_8c_af24259e6706d7b5814b544d30c4c32d3}
+
+
+Definition at line 12 of file kb.c.
+
+\hypertarget{kb_8c_ab9604b0aa3f2cf9a1f0df678d9124cf6}{
+\index{kb.c@{kb.c}!conv\_\-str@{conv\_\-str}}
+\index{conv\_\-str@{conv\_\-str}!kb.c@{kb.c}}
+\subsubsection[{conv\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf conv\_\-str}\mbox{[}10\mbox{]}}}
+\label{kb_8c_ab9604b0aa3f2cf9a1f0df678d9124cf6}
+
+
+Definition at line 13 of file kb.c.
+
+\hypertarget{kb_8c_a38030c97efa32e38584763531f956734}{
+\index{kb.c@{kb.c}!edge@{edge}}
+\index{edge@{edge}!kb.c@{kb.c}}
+\subsubsection[{edge}]{\setlength{\rightskip}{0pt plus 5cm}\_\-Bool {\bf edge} = 0}}
+\label{kb_8c_a38030c97efa32e38584763531f956734}
+
+
+Definition at line 11 of file kb.c.
+

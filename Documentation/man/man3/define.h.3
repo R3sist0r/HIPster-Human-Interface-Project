@@ -1,0 +1,201 @@
+.TH "D:/GIT_DEV/2011_HiTech/KeyboardR/define.h" 3 "Mon Mar 28 2011" "Version 0.7" "Human Interface Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+D:/GIT_DEV/2011_HiTech/KeyboardR/define.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <avr/io.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <avr/interrupt.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBuart_tx\fP (unsigned int data)"
+.br
+.ti -1c
+.RI "void \fBuart_tx_str\fP (char str[])"
+.br
+.ti -1c
+.RI "void \fBuart_init\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.RI "\fIThe \fBmain()\fP function of the program. \fP"
+.ti -1c
+.RI "void \fBinit_all\fP (void)"
+.br
+.RI "\fIA function which initialises all required hardware. \fP"
+.ti -1c
+.RI "void \fBkb_init\fP (void)"
+.br
+.ti -1c
+.RI "void \fBkb_decode\fP (unsigned char sc)"
+.br
+.ti -1c
+.RI "void \fBpwm_init\fP (void)"
+.br
+.RI "\fIA function which initialises the pwm module of the AVR. \fP"
+.ti -1c
+.RI "void \fBpwm_sendColor\fP (int red, int green, int blue)"
+.br
+.RI "\fIA function which effectively creates any colour on the RGB LED, sent in RGB notation. \fP"
+.ti -1c
+.RI "void \fBpwm_incRed\fP (void)"
+.br
+.RI "\fIIncrement the red LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_decRed\fP (void)"
+.br
+.RI "\fIDecrement the red LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_incGreen\fP (void)"
+.br
+.RI "\fIIncrement the green LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_decGreen\fP (void)"
+.br
+.RI "\fIDecrement the green LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_incBlue\fP (void)"
+.br
+.RI "\fIIncrement the blue LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_decBlue\fP (void)"
+.br
+.RI "\fIDecrement the blue LED by the value set in INCREASE. \fP"
+.ti -1c
+.RI "void \fBpwm_change\fP (char kbchar)"
+.br
+.RI "\fIAct on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. \fP"
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void init_all (void)"
+.PP
+A function which initialises all required hardware. \fBinit_all()\fP calls further functions to set up low-level hardware. It also prints a string on the UART port to show that the system has booted correctly
+.PP
+Initialisation sequence:
+.IP "\(bu" 2
+Initialise the uart serial port
+.IP "\(bu" 2
+Initialise the keyboard interrupt hardware
+.IP "\(bu" 2
+Initialise the pwm module hardware for control of the RGB LED
+.IP "\(bu" 2
+Send a string through the serial port to show that the system has booted correctly
+.IP "\(bu" 2
+Enable global interrupts 
+.PP
+
+.PP
+Definition at line 32 of file main.c.
+.SS "void kb_decode (unsigned charsc)"
+.PP
+Definition at line 27 of file kb.c.
+.SS "void kb_init (void)"
+.PP
+Definition at line 15 of file kb.c.
+.SS "int main (void)"
+.PP
+The \fBmain()\fP function of the program. Since the keyboard control of the RGB LED is entirely interrupt-driven, once the \fBinit_all()\fP routine has been called, the main routine is only an infinite loop. 
+.PP
+Definition at line 47 of file main.c.
+.SS "void pwm_change (charkbchar)"
+.PP
+Act on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. \fBParameters:\fP
+.RS 4
+\fIkbchar\fP The processed character recieved from the keyboard 
+.RE
+.PP
+
+.PP
+Definition at line 171 of file pwm.c.
+.SS "void pwm_decBlue (void)"
+.PP
+Decrement the blue LED by the value set in INCREASE. 
+.PP
+Definition at line 155 of file pwm.c.
+.SS "void pwm_decGreen (void)"
+.PP
+Decrement the green LED by the value set in INCREASE. 
+.PP
+Definition at line 131 of file pwm.c.
+.SS "void pwm_decRed (void)"
+.PP
+Decrement the red LED by the value set in INCREASE. Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+.PP
+Definition at line 107 of file pwm.c.
+.SS "void pwm_incBlue (void)"
+.PP
+Increment the blue LED by the value set in INCREASE. 
+.PP
+Definition at line 143 of file pwm.c.
+.SS "void pwm_incGreen (void)"
+.PP
+Increment the green LED by the value set in INCREASE. 
+.PP
+Definition at line 119 of file pwm.c.
+.SS "void pwm_incRed (void)"
+.PP
+Increment the red LED by the value set in INCREASE. Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+.PP
+Definition at line 91 of file pwm.c.
+.SS "void pwm_init (void)"
+.PP
+A function which initialises the pwm module of the AVR. \fBpwm_init()\fP sets up the required AVR registers, including setting outputs, and setting PWM modes. It then turns the RGB LED off.
+.PP
+Initialisation sequence:
+.IP "\(bu" 2
+Set all pins as outputs
+.IP "\(bu" 2
+Set up each timer for PWM mode
+.IP "  1." 6
+Non-inverting PWM mode
+.IP "  2." 6
+Fast PWM mode
+.IP "  3." 6
+Select the clock source as un-prescaled 
+.PP
+
+.PP
+
+.PP
+Definition at line 46 of file pwm.c.
+.SS "void pwm_sendColor (intred, intgreen, intblue)"
+.PP
+A function which effectively creates any colour on the RGB LED, sent in RGB notation. \fBParameters:\fP
+.RS 4
+\fIred\fP The red value (0-255) to send to the LED 
+.br
+\fIgreen\fP The red value (0-255) to send to the LED 
+.br
+\fIblue\fP The red value (0-255) to send to the LED 
+.RE
+.PP
+
+.PP
+Definition at line 75 of file pwm.c.
+.SS "void uart_init (void)"
+.PP
+Definition at line 4 of file uart.c.
+.SS "void uart_tx (unsigned intdata)"
+.PP
+Definition at line 16 of file uart.c.
+.SS "void uart_tx_str (charstr[])"
+.PP
+Definition at line 23 of file uart.c.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Human Interface Project from the source code.

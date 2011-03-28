@@ -1,0 +1,335 @@
+\hypertarget{define_8h}{
+\section{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/define.h File Reference}
+\label{define_8h}\index{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/define.h@{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/define.h}}
+}
+{\ttfamily \#include $<$avr/io.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$avr/interrupt.h$>$}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{define_8h_a76c35e13d13ea30b920018234e58f7c3}{uart\_\-tx} (unsigned int data)
+\item 
+void \hyperlink{define_8h_aa24f1ecd349b5cfe37260a5a15c50831}{uart\_\-tx\_\-str} (char str\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{define_8h_a0c0ca72359ddf28dcd15900dfba19343}{uart\_\-init} (void)
+\item 
+int \hyperlink{define_8h_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\begin{DoxyCompactList}\small\item\em The \hyperlink{define_8h_a840291bc02cba5474a4cb46a9b9566fe}{main()} function of the program. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_ad70f49ad8fe296283f2a1e799dc418d7}{init\_\-all} (void)
+\begin{DoxyCompactList}\small\item\em A function which initialises all required hardware. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_aabdb223e5290f3b3c07bc82d075b87d7}{kb\_\-init} (void)
+\item 
+void \hyperlink{define_8h_a21c5cac5dd3aef37ed5158c09b109c1e}{kb\_\-decode} (unsigned char sc)
+\item 
+void \hyperlink{define_8h_a1e8fdae3fd7118582ffa427dad05b6e1}{pwm\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em A function which initialises the pwm module of the AVR. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_a11351831034682b1f7caf0d8c1090cd3}{pwm\_\-sendColor} (int red, int green, int blue)
+\begin{DoxyCompactList}\small\item\em A function which effectively creates any colour on the RGB LED, sent in RGB notation. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_a36398743f08e00ee46e55c1095598990}{pwm\_\-incRed} (void)
+\begin{DoxyCompactList}\small\item\em Increment the red LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_a31cb7f663a52c9ef7250c0e0edce3a1c}{pwm\_\-decRed} (void)
+\begin{DoxyCompactList}\small\item\em Decrement the red LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_ac2f112d8a38214dac55765ee88cd7028}{pwm\_\-incGreen} (void)
+\begin{DoxyCompactList}\small\item\em Increment the green LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_ab36da45a3360353de3609f5114168cfa}{pwm\_\-decGreen} (void)
+\begin{DoxyCompactList}\small\item\em Decrement the green LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_abab879a2ad40981e51018de618cbc165}{pwm\_\-incBlue} (void)
+\begin{DoxyCompactList}\small\item\em Increment the blue LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_a9cca593aaed35df3e2d6d5f151f8681c}{pwm\_\-decBlue} (void)
+\begin{DoxyCompactList}\small\item\em Decrement the blue LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{define_8h_a69c66c611a31cb9e6ae732e13fc84788}{pwm\_\-change} (char kbchar)
+\begin{DoxyCompactList}\small\item\em Act on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{define_8h_ad70f49ad8fe296283f2a1e799dc418d7}{
+\index{define.h@{define.h}!init\_\-all@{init\_\-all}}
+\index{init\_\-all@{init\_\-all}!define.h@{define.h}}
+\subsubsection[{init\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\-all (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_ad70f49ad8fe296283f2a1e799dc418d7}
+
+
+A function which initialises all required hardware. 
+
+\hyperlink{define_8h_ad70f49ad8fe296283f2a1e799dc418d7}{init\_\-all()} calls further functions to set up low-\/level hardware. It also prints a string on the UART port to show that the system has booted correctly
+
+Initialisation sequence:
+\begin{DoxyItemize}
+\item Initialise the uart serial port
+\item Initialise the keyboard interrupt hardware
+\item Initialise the pwm module hardware for control of the RGB LED
+\item Send a string through the serial port to show that the system has booted correctly
+\item Enable global interrupts 
+\end{DoxyItemize}
+
+Definition at line 32 of file main.c.
+
+\hypertarget{define_8h_a21c5cac5dd3aef37ed5158c09b109c1e}{
+\index{define.h@{define.h}!kb\_\-decode@{kb\_\-decode}}
+\index{kb\_\-decode@{kb\_\-decode}!define.h@{define.h}}
+\subsubsection[{kb\_\-decode}]{\setlength{\rightskip}{0pt plus 5cm}void kb\_\-decode (
+\begin{DoxyParamCaption}
+\item[{unsigned char}]{sc}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a21c5cac5dd3aef37ed5158c09b109c1e}
+
+
+Definition at line 27 of file kb.c.
+
+\hypertarget{define_8h_aabdb223e5290f3b3c07bc82d075b87d7}{
+\index{define.h@{define.h}!kb\_\-init@{kb\_\-init}}
+\index{kb\_\-init@{kb\_\-init}!define.h@{define.h}}
+\subsubsection[{kb\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void kb\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_aabdb223e5290f3b3c07bc82d075b87d7}
+
+
+Definition at line 15 of file kb.c.
+
+\hypertarget{define_8h_a840291bc02cba5474a4cb46a9b9566fe}{
+\index{define.h@{define.h}!main@{main}}
+\index{main@{main}!define.h@{define.h}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+The \hyperlink{define_8h_a840291bc02cba5474a4cb46a9b9566fe}{main()} function of the program. 
+
+Since the keyboard control of the RGB LED is entirely interrupt-\/driven, once the \hyperlink{define_8h_ad70f49ad8fe296283f2a1e799dc418d7}{init\_\-all()} routine has been called, the main routine is only an infinite loop. 
+
+Definition at line 47 of file main.c.
+
+\hypertarget{define_8h_a69c66c611a31cb9e6ae732e13fc84788}{
+\index{define.h@{define.h}!pwm\_\-change@{pwm\_\-change}}
+\index{pwm\_\-change@{pwm\_\-change}!define.h@{define.h}}
+\subsubsection[{pwm\_\-change}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-change (
+\begin{DoxyParamCaption}
+\item[{char}]{kbchar}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a69c66c611a31cb9e6ae732e13fc84788}
+
+
+Act on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kbchar} & The processed character recieved from the keyboard \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 171 of file pwm.c.
+
+\hypertarget{define_8h_a9cca593aaed35df3e2d6d5f151f8681c}{
+\index{define.h@{define.h}!pwm\_\-decBlue@{pwm\_\-decBlue}}
+\index{pwm\_\-decBlue@{pwm\_\-decBlue}!define.h@{define.h}}
+\subsubsection[{pwm\_\-decBlue}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-decBlue (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a9cca593aaed35df3e2d6d5f151f8681c}
+
+
+Decrement the blue LED by the value set in INCREASE. 
+
+
+
+Definition at line 155 of file pwm.c.
+
+\hypertarget{define_8h_ab36da45a3360353de3609f5114168cfa}{
+\index{define.h@{define.h}!pwm\_\-decGreen@{pwm\_\-decGreen}}
+\index{pwm\_\-decGreen@{pwm\_\-decGreen}!define.h@{define.h}}
+\subsubsection[{pwm\_\-decGreen}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-decGreen (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_ab36da45a3360353de3609f5114168cfa}
+
+
+Decrement the green LED by the value set in INCREASE. 
+
+
+
+Definition at line 131 of file pwm.c.
+
+\hypertarget{define_8h_a31cb7f663a52c9ef7250c0e0edce3a1c}{
+\index{define.h@{define.h}!pwm\_\-decRed@{pwm\_\-decRed}}
+\index{pwm\_\-decRed@{pwm\_\-decRed}!define.h@{define.h}}
+\subsubsection[{pwm\_\-decRed}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-decRed (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a31cb7f663a52c9ef7250c0e0edce3a1c}
+
+
+Decrement the red LED by the value set in INCREASE. 
+
+Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+
+Definition at line 107 of file pwm.c.
+
+\hypertarget{define_8h_abab879a2ad40981e51018de618cbc165}{
+\index{define.h@{define.h}!pwm\_\-incBlue@{pwm\_\-incBlue}}
+\index{pwm\_\-incBlue@{pwm\_\-incBlue}!define.h@{define.h}}
+\subsubsection[{pwm\_\-incBlue}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-incBlue (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_abab879a2ad40981e51018de618cbc165}
+
+
+Increment the blue LED by the value set in INCREASE. 
+
+
+
+Definition at line 143 of file pwm.c.
+
+\hypertarget{define_8h_ac2f112d8a38214dac55765ee88cd7028}{
+\index{define.h@{define.h}!pwm\_\-incGreen@{pwm\_\-incGreen}}
+\index{pwm\_\-incGreen@{pwm\_\-incGreen}!define.h@{define.h}}
+\subsubsection[{pwm\_\-incGreen}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-incGreen (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_ac2f112d8a38214dac55765ee88cd7028}
+
+
+Increment the green LED by the value set in INCREASE. 
+
+
+
+Definition at line 119 of file pwm.c.
+
+\hypertarget{define_8h_a36398743f08e00ee46e55c1095598990}{
+\index{define.h@{define.h}!pwm\_\-incRed@{pwm\_\-incRed}}
+\index{pwm\_\-incRed@{pwm\_\-incRed}!define.h@{define.h}}
+\subsubsection[{pwm\_\-incRed}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-incRed (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a36398743f08e00ee46e55c1095598990}
+
+
+Increment the red LED by the value set in INCREASE. 
+
+Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+
+Definition at line 91 of file pwm.c.
+
+\hypertarget{define_8h_a1e8fdae3fd7118582ffa427dad05b6e1}{
+\index{define.h@{define.h}!pwm\_\-init@{pwm\_\-init}}
+\index{pwm\_\-init@{pwm\_\-init}!define.h@{define.h}}
+\subsubsection[{pwm\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a1e8fdae3fd7118582ffa427dad05b6e1}
+
+
+A function which initialises the pwm module of the AVR. 
+
+\hyperlink{define_8h_a1e8fdae3fd7118582ffa427dad05b6e1}{pwm\_\-init()} sets up the required AVR registers, including setting outputs, and setting PWM modes. It then turns the RGB LED off.
+
+Initialisation sequence:
+\begin{DoxyItemize}
+\item Set all pins as outputs
+\item Set up each timer for PWM mode
+\begin{DoxyEnumerate}
+\item Non-\/inverting PWM mode
+\item Fast PWM mode
+\item Select the clock source as un-\/prescaled 
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+
+Definition at line 46 of file pwm.c.
+
+\hypertarget{define_8h_a11351831034682b1f7caf0d8c1090cd3}{
+\index{define.h@{define.h}!pwm\_\-sendColor@{pwm\_\-sendColor}}
+\index{pwm\_\-sendColor@{pwm\_\-sendColor}!define.h@{define.h}}
+\subsubsection[{pwm\_\-sendColor}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-sendColor (
+\begin{DoxyParamCaption}
+\item[{int}]{red, }
+\item[{int}]{green, }
+\item[{int}]{blue}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a11351831034682b1f7caf0d8c1090cd3}
+
+
+A function which effectively creates any colour on the RGB LED, sent in RGB notation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em red} & The red value (0-\/255) to send to the LED \\
+\hline
+{\em green} & The red value (0-\/255) to send to the LED \\
+\hline
+{\em blue} & The red value (0-\/255) to send to the LED \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 75 of file pwm.c.
+
+\hypertarget{define_8h_a0c0ca72359ddf28dcd15900dfba19343}{
+\index{define.h@{define.h}!uart\_\-init@{uart\_\-init}}
+\index{uart\_\-init@{uart\_\-init}!define.h@{define.h}}
+\subsubsection[{uart\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void uart\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a0c0ca72359ddf28dcd15900dfba19343}
+
+
+Definition at line 4 of file uart.c.
+
+\hypertarget{define_8h_a76c35e13d13ea30b920018234e58f7c3}{
+\index{define.h@{define.h}!uart\_\-tx@{uart\_\-tx}}
+\index{uart\_\-tx@{uart\_\-tx}!define.h@{define.h}}
+\subsubsection[{uart\_\-tx}]{\setlength{\rightskip}{0pt plus 5cm}void uart\_\-tx (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_a76c35e13d13ea30b920018234e58f7c3}
+
+
+Definition at line 16 of file uart.c.
+
+\hypertarget{define_8h_aa24f1ecd349b5cfe37260a5a15c50831}{
+\index{define.h@{define.h}!uart\_\-tx\_\-str@{uart\_\-tx\_\-str}}
+\index{uart\_\-tx\_\-str@{uart\_\-tx\_\-str}!define.h@{define.h}}
+\subsubsection[{uart\_\-tx\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}void uart\_\-tx\_\-str (
+\begin{DoxyParamCaption}
+\item[{char}]{str\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{define_8h_aa24f1ecd349b5cfe37260a5a15c50831}
+
+
+Definition at line 23 of file uart.c.
+

@@ -1,0 +1,312 @@
+\hypertarget{pwm_8c}{
+\section{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/pwm.c File Reference}
+\label{pwm_8c}\index{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/pwm.c@{D:/GIT\_\-DEV/2011\_\-HiTech/KeyboardR/pwm.c}}
+}
+
+
+This file handles low level control of the pwm modules of the AVR, as well as implementing functions to send commands to the RGB LED.  
+
+
+{\ttfamily \#include \char`\"{}define.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}led.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{pwm_8c_a336f67e9817ede04fdf58ee2cd144522}{INCREASE}~20
+\begin{DoxyCompactList}\small\item\em This variable controls the step size of each brightness up/down recursion. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{pwm_8c_a1e8fdae3fd7118582ffa427dad05b6e1}{pwm\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em A function which initialises the pwm module of the AVR. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_a11351831034682b1f7caf0d8c1090cd3}{pwm\_\-sendColor} (int red, int green, int blue)
+\begin{DoxyCompactList}\small\item\em A function which effectively creates any colour on the RGB LED, sent in RGB notation. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_a36398743f08e00ee46e55c1095598990}{pwm\_\-incRed} (void)
+\begin{DoxyCompactList}\small\item\em Increment the red LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_a31cb7f663a52c9ef7250c0e0edce3a1c}{pwm\_\-decRed} (void)
+\begin{DoxyCompactList}\small\item\em Decrement the red LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_ac2f112d8a38214dac55765ee88cd7028}{pwm\_\-incGreen} (void)
+\begin{DoxyCompactList}\small\item\em Increment the green LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_ab36da45a3360353de3609f5114168cfa}{pwm\_\-decGreen} (void)
+\begin{DoxyCompactList}\small\item\em Decrement the green LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_abab879a2ad40981e51018de618cbc165}{pwm\_\-incBlue} (void)
+\begin{DoxyCompactList}\small\item\em Increment the blue LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_a9cca593aaed35df3e2d6d5f151f8681c}{pwm\_\-decBlue} (void)
+\begin{DoxyCompactList}\small\item\em Decrement the blue LED by the value set in INCREASE. \item\end{DoxyCompactList}\item 
+void \hyperlink{pwm_8c_a69c66c611a31cb9e6ae732e13fc84788}{pwm\_\-change} (char kbchar)
+\begin{DoxyCompactList}\small\item\em Act on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{pwm_8c_ab9604b0aa3f2cf9a1f0df678d9124cf6}{conv\_\-str} \mbox{[}10\mbox{]}
+\begin{DoxyCompactList}\small\item\em Variable used for string conversions during debugging. \item\end{DoxyCompactList}\item 
+char \hyperlink{pwm_8c_ac7d7ac2febab4c3853868863f3354177}{redR} = 0
+\begin{DoxyCompactList}\small\item\em Variable to hold the brightness of the red LED. \item\end{DoxyCompactList}\item 
+char \hyperlink{pwm_8c_a95dc7b5e2fd078d85ddcedbcc0bd1b87}{greenR} = 0xFF
+\begin{DoxyCompactList}\small\item\em Variable to hold the brightness of the green LED (0xFF, as that register is inverse) \item\end{DoxyCompactList}\item 
+char \hyperlink{pwm_8c_a9e5ee4e1b3c311e2889ba0926d356979}{blueR} = 0xFF
+\begin{DoxyCompactList}\small\item\em Variable to hold the brightness of the blue LED (0xFF, as that register is inverse) \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file handles low level control of the pwm modules of the AVR, as well as implementing functions to send commands to the RGB LED. \begin{DoxyAuthor}{Author}
+(c)2011 Reuben Posthuma 
+\end{DoxyAuthor}
+
+
+Definition in file \hyperlink{pwm_8c_source}{pwm.c}.
+
+
+
+\subsection{Define Documentation}
+\hypertarget{pwm_8c_a336f67e9817ede04fdf58ee2cd144522}{
+\index{pwm.c@{pwm.c}!INCREASE@{INCREASE}}
+\index{INCREASE@{INCREASE}!pwm.c@{pwm.c}}
+\subsubsection[{INCREASE}]{\setlength{\rightskip}{0pt plus 5cm}\#define INCREASE~20}}
+\label{pwm_8c_a336f67e9817ede04fdf58ee2cd144522}
+
+
+This variable controls the step size of each brightness up/down recursion. 
+
+
+
+Definition at line 18 of file pwm.c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{pwm_8c_a69c66c611a31cb9e6ae732e13fc84788}{
+\index{pwm.c@{pwm.c}!pwm\_\-change@{pwm\_\-change}}
+\index{pwm\_\-change@{pwm\_\-change}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-change}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-change (
+\begin{DoxyParamCaption}
+\item[{char}]{kbchar}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_a69c66c611a31cb9e6ae732e13fc84788}
+
+
+Act on the keyboard character recieved from the PS/2 keyboard This function uses a switch statement to determine what action to take, based on the input from the keyboard. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kbchar} & The processed character recieved from the keyboard \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 171 of file pwm.c.
+
+\hypertarget{pwm_8c_a9cca593aaed35df3e2d6d5f151f8681c}{
+\index{pwm.c@{pwm.c}!pwm\_\-decBlue@{pwm\_\-decBlue}}
+\index{pwm\_\-decBlue@{pwm\_\-decBlue}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-decBlue}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-decBlue (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_a9cca593aaed35df3e2d6d5f151f8681c}
+
+
+Decrement the blue LED by the value set in INCREASE. 
+
+
+
+Definition at line 155 of file pwm.c.
+
+\hypertarget{pwm_8c_ab36da45a3360353de3609f5114168cfa}{
+\index{pwm.c@{pwm.c}!pwm\_\-decGreen@{pwm\_\-decGreen}}
+\index{pwm\_\-decGreen@{pwm\_\-decGreen}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-decGreen}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-decGreen (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_ab36da45a3360353de3609f5114168cfa}
+
+
+Decrement the green LED by the value set in INCREASE. 
+
+
+
+Definition at line 131 of file pwm.c.
+
+\hypertarget{pwm_8c_a31cb7f663a52c9ef7250c0e0edce3a1c}{
+\index{pwm.c@{pwm.c}!pwm\_\-decRed@{pwm\_\-decRed}}
+\index{pwm\_\-decRed@{pwm\_\-decRed}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-decRed}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-decRed (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_a31cb7f663a52c9ef7250c0e0edce3a1c}
+
+
+Decrement the red LED by the value set in INCREASE. 
+
+Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+
+Definition at line 107 of file pwm.c.
+
+\hypertarget{pwm_8c_abab879a2ad40981e51018de618cbc165}{
+\index{pwm.c@{pwm.c}!pwm\_\-incBlue@{pwm\_\-incBlue}}
+\index{pwm\_\-incBlue@{pwm\_\-incBlue}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-incBlue}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-incBlue (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_abab879a2ad40981e51018de618cbc165}
+
+
+Increment the blue LED by the value set in INCREASE. 
+
+
+
+Definition at line 143 of file pwm.c.
+
+\hypertarget{pwm_8c_ac2f112d8a38214dac55765ee88cd7028}{
+\index{pwm.c@{pwm.c}!pwm\_\-incGreen@{pwm\_\-incGreen}}
+\index{pwm\_\-incGreen@{pwm\_\-incGreen}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-incGreen}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-incGreen (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_ac2f112d8a38214dac55765ee88cd7028}
+
+
+Increment the green LED by the value set in INCREASE. 
+
+
+
+Definition at line 119 of file pwm.c.
+
+\hypertarget{pwm_8c_a36398743f08e00ee46e55c1095598990}{
+\index{pwm.c@{pwm.c}!pwm\_\-incRed@{pwm\_\-incRed}}
+\index{pwm\_\-incRed@{pwm\_\-incRed}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-incRed}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-incRed (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_a36398743f08e00ee46e55c1095598990}
+
+
+Increment the red LED by the value set in INCREASE. 
+
+Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value 
+
+Definition at line 91 of file pwm.c.
+
+\hypertarget{pwm_8c_a1e8fdae3fd7118582ffa427dad05b6e1}{
+\index{pwm.c@{pwm.c}!pwm\_\-init@{pwm\_\-init}}
+\index{pwm\_\-init@{pwm\_\-init}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_a1e8fdae3fd7118582ffa427dad05b6e1}
+
+
+A function which initialises the pwm module of the AVR. 
+
+\hyperlink{define_8h_a1e8fdae3fd7118582ffa427dad05b6e1}{pwm\_\-init()} sets up the required AVR registers, including setting outputs, and setting PWM modes. It then turns the RGB LED off.
+
+Initialisation sequence:
+\begin{DoxyItemize}
+\item Set all pins as outputs
+\item Set up each timer for PWM mode
+\begin{DoxyEnumerate}
+\item Non-\/inverting PWM mode
+\item Fast PWM mode
+\item Select the clock source as un-\/prescaled 
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+
+Definition at line 46 of file pwm.c.
+
+\hypertarget{pwm_8c_a11351831034682b1f7caf0d8c1090cd3}{
+\index{pwm.c@{pwm.c}!pwm\_\-sendColor@{pwm\_\-sendColor}}
+\index{pwm\_\-sendColor@{pwm\_\-sendColor}!pwm.c@{pwm.c}}
+\subsubsection[{pwm\_\-sendColor}]{\setlength{\rightskip}{0pt plus 5cm}void pwm\_\-sendColor (
+\begin{DoxyParamCaption}
+\item[{int}]{red, }
+\item[{int}]{green, }
+\item[{int}]{blue}
+\end{DoxyParamCaption}
+)}}
+\label{pwm_8c_a11351831034682b1f7caf0d8c1090cd3}
+
+
+A function which effectively creates any colour on the RGB LED, sent in RGB notation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em red} & The red value (0-\/255) to send to the LED \\
+\hline
+{\em green} & The red value (0-\/255) to send to the LED \\
+\hline
+{\em blue} & The red value (0-\/255) to send to the LED \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 75 of file pwm.c.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{pwm_8c_a9e5ee4e1b3c311e2889ba0926d356979}{
+\index{pwm.c@{pwm.c}!blueR@{blueR}}
+\index{blueR@{blueR}!pwm.c@{pwm.c}}
+\subsubsection[{blueR}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf blueR} = 0xFF}}
+\label{pwm_8c_a9e5ee4e1b3c311e2889ba0926d356979}
+
+
+Variable to hold the brightness of the blue LED (0xFF, as that register is inverse) 
+
+
+
+Definition at line 30 of file pwm.c.
+
+\hypertarget{pwm_8c_ab9604b0aa3f2cf9a1f0df678d9124cf6}{
+\index{pwm.c@{pwm.c}!conv\_\-str@{conv\_\-str}}
+\index{conv\_\-str@{conv\_\-str}!pwm.c@{pwm.c}}
+\subsubsection[{conv\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf conv\_\-str}\mbox{[}10\mbox{]}}}
+\label{pwm_8c_ab9604b0aa3f2cf9a1f0df678d9124cf6}
+
+
+Variable used for string conversions during debugging. 
+
+
+
+Definition at line 21 of file pwm.c.
+
+\hypertarget{pwm_8c_a95dc7b5e2fd078d85ddcedbcc0bd1b87}{
+\index{pwm.c@{pwm.c}!greenR@{greenR}}
+\index{greenR@{greenR}!pwm.c@{pwm.c}}
+\subsubsection[{greenR}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf greenR} = 0xFF}}
+\label{pwm_8c_a95dc7b5e2fd078d85ddcedbcc0bd1b87}
+
+
+Variable to hold the brightness of the green LED (0xFF, as that register is inverse) 
+
+
+
+Definition at line 27 of file pwm.c.
+
+\hypertarget{pwm_8c_ac7d7ac2febab4c3853868863f3354177}{
+\index{pwm.c@{pwm.c}!redR@{redR}}
+\index{redR@{redR}!pwm.c@{pwm.c}}
+\subsubsection[{redR}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf redR} = 0}}
+\label{pwm_8c_ac7d7ac2febab4c3853868863f3354177}
+
+
+Variable to hold the brightness of the red LED. 
+
+
+
+Definition at line 24 of file pwm.c.
+
