@@ -1,5 +1,11 @@
-//This is a correction array to correct the percieved brightness of the LED versus the actual PWM value
-//It is based on an S-Curve
+/*!
+*	\file led.h
+*
+*	\author (c)2011 Reuben Posthuma
+*
+*	\brief An indexed array lookup table containing an implementation of an S-Curve function
+		This is to align the percieved brightness of the LED with a 0-255 value for easy control
+*/
 
 char led_correct[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
