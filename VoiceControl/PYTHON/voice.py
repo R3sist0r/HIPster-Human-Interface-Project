@@ -21,9 +21,9 @@ def commandLED(phraseID):
             12: 'o',    #! All off
             13: 'w'     #! All on (white)
     }[phraseID]
-    print result
+    ser.write(result)
     
-phrases = ['Max Ruby', 'Increase Ruby', 'Decrease Ruby', 'Minimum Ruby', 'Max Green', 'Increase Green', 'Decrease Green', 'Minimum Green', 'Max Blue', 'Increase Blue', 'Decrease Blue', 'Min Blue', 'Off', 'L E D white']
+phrases = ['Max Ruby', 'Increase Ruby', 'Decrease Ruby', 'Minimum Ruby', 'Max Green', 'Increase Green', 'Decrease Green', 'Minimum Green', 'Max Blue', 'Increase Blue', 'Decrease Blue', 'Min Blue', 'L E D Off', 'L E D white']
 while True:
     phrase = speech.input("Control the LED", phrases )
     print phrase
