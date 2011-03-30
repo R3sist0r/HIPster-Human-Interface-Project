@@ -83,6 +83,15 @@ void pwm_sendColor(int red, int green, int blue) {
 }
 
 /*! 	
+	\brief Set the RED LED to maximum brightness
+*/
+
+void pwm_maxRed(void) {
+		OCR1A = 1020;
+		redR = 255;
+}
+
+/*! 	
 	\brief Increment the red LED by the value set in INCREASE	
 		
 	Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value
@@ -114,6 +123,23 @@ void pwm_decRed(void) {
 }
 
 /*! 	
+	\brief Set the RED LED to minimum brightness
+*/
+
+void pwm_minRed(void) {
+    OCR1A = 0;
+    redR = 0;
+}
+
+/*! 	
+	\brief Set the green LED to its maximum brightness
+*/
+void pwm_maxGreen(void) {
+    OCR0A = 0;
+    greenR = 0;
+}
+
+/*! 	
 	\brief Increment the green LED by the value set in INCREASE	
 */
 void pwm_incGreen(void) {
@@ -135,6 +161,22 @@ void pwm_decGreen(void) {
 		OCR0A = led_correct[greenR + INCREASE];
 		greenR = greenR+INCREASE;
 	}
+}
+
+/*! 	
+	\brief Set the green LED to minimum brightness
+*/
+void pwm_minGreen(void) {
+    OCR0A = 255;
+    greenR = 255;
+}
+
+/*! 	
+	\brief Set the Blue LED to its maximum brightness
+*/
+void pwm_maxBlue(void) {
+    OCR2A = 0;
+    blueR = 0;
 }
 
 /*! 	
@@ -161,6 +203,15 @@ void pwm_decBlue(void) {
 	}
 }
 
+
+/*! 	
+	\brief Set the Blue LED to its minimum brightness
+*/
+void pwm_minBlue(void) {
+    OCR2A = 255;
+    blueR = 255;
+}
+
 /*! 	
 	\brief Act on the keyboard character recieved from the PS/2 keyboard
 	This function uses a switch statement to determine what action to take, based on the input from the keyboard
@@ -170,35 +221,47 @@ void pwm_decBlue(void) {
 */
 void pwm_change(char kbchar) {
 	switch(kbchar) {
+        case 'R':
+			pwm_maxRed();
+		break;
 		case 'r':
 			pwm_incRed();
-			uart_tx_str(ltoa(OCR1A, conv_str, 10));
-			uart_tx_str("\r\n");
 		break;
 		case 'e':
 			pwm_decRed();
-			uart_tx_str(ltoa(OCR1A, conv_str, 10));
-			uart_tx_str("\r\n");
+		break;		
+        case 'E':
+			pwm_minRed();
 		break;
-		case 'g':
+		case 'G':
+			pwm_maxGreen();
+		break;		
+        case 'g':
 			pwm_incGreen();
-			uart_tx_str(ltoa(OCR0A, conv_str, 10));
-			uart_tx_str("\r\n");
 		break;
 		case 'f':
 			pwm_decGreen();
-			uart_tx_str(ltoa(OCR0A, conv_str, 10));
-			uart_tx_str("\r\n");
+		break;		
+        case 'F':
+			pwm_minGreen();
 		break;
-		case 'b':
+		case 'B':
+			pwm_maxBlue();
+		break;		
+        case 'b':
 			pwm_incBlue();
-			uart_tx_str(ltoa(OCR2A, conv_str, 10));
-			uart_tx_str("\r\n");
 		break;
 		case 'v':
 			pwm_decBlue();
-			uart_tx_str(ltoa(OCR2A, conv_str, 10));
-			uart_tx_str("\r\n");
+		break;
+		case 'V':
+			pwm_minBlue();
+		break;		
+        case 'o':
+			pwm_sendColor(0,0,0);
+		break;
+        case 'w':
+			pwm_sendColor(255,255,255);
 		break;
 		default:
 		break;
