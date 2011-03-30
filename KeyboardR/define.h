@@ -4,9 +4,11 @@
 #include <string.h>
 #include <avr/interrupt.h>
 
+#define ISR_STATE 0
+
 void uart_tx( unsigned int data );
 void uart_tx_str (char str[]);
-void uart_init(void);
+void uart_init(_Bool isr);
 
 int main(void);
 void init_all(void);
