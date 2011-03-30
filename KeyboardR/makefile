@@ -11,7 +11,7 @@
 MCU = atmega88p
 FORMAT = ihex
 TARGET = main
-SRC = $(TARGET).c uart.c kb.c pwm.c
+SRC = $(TARGET).c ../Generic/uart.c kb.c ../Generic/pwm.c
 Optimise=3
 
 
