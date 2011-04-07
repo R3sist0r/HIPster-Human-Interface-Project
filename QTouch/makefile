@@ -23,7 +23,7 @@ OBJDUMP = avr-objdump
 # Compiler/Linker flags
 # Genering flags for both assembler and C files
 
-GFLAGS = -D_QTOUCH_ -DQT_NUM_CHANNELS=8 -DSNSK1=A -DSNS1=D -DQT_DELAY_CYCLES=1 
+GFLAGS = -D_QTOUCH_ -D_ROTOR_SLIDER_ -DQT_NUM_CHANNELS=8 -DSNSK1=A -DSNS1=D -DQT_DELAY_CYCLES=1 
 
 CFLAGS += -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums $(GFLAGS)
 CFLAGS += -Wall -Wstrict-prototypes -Wa,-adhlns=$(<:.c=.lst) -std=gnu99
