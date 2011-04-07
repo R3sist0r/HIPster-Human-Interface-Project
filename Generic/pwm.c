@@ -213,7 +213,7 @@ void pwm_minBlue(void) {
 }
 
 /*! 	
-	\brief Act on the keyboard character recieved from the PS/2 keyboard
+	\brief Act on the keyboard character recieved from the PS/2 keyboard or UART port
 	This function uses a switch statement to determine what action to take, based on the input from the keyboard
 	
 	\param kbchar 	The processed character recieved from the keyboard
