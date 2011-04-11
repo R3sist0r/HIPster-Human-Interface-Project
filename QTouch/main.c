@@ -16,6 +16,12 @@ void init_qt_globals (void);
 void init_system (void);
 void init_timer_isr (void);
 
+void pwm_init(void);
+void pwm_setRed(char red);
+void pwm_setGreen(char green);
+void pwm_setBlue(char blue);
+void pwm_setColour(char red, char green, char blue);
+enum colours {red, green, blue} colour_state;
 int
 main (void)
 { 
@@ -40,6 +46,7 @@ init_qt_globals ()
 void
 init_system (void)
 {
+  colour_state = red;
   /* Set up clocksystem to run at 8MHz using internal 32MHz Osc */
   CLKSYS_Enable (OSC_RC32MEN_bm);
   CLKSYS_Prescalers_Config (CLK_PSADIV_1_gc, CLK_PSBCDIV_4_1_gc);
@@ -51,25 +58,13 @@ init_system (void)
   init_qt_globals ();
   qt_enable_key (CHANNEL_0, AKS_GROUP_1, 10u, HYST_6_25);
   qt_enable_key (CHANNEL_1, AKS_GROUP_1, 10u, HYST_6_25);
-  /* enable sensor 2: a slider on channels 2..4 */
-  qt_enable_rotor (CHANNEL_5, CHANNEL_7, AKS_GROUP_1, 16u, HYST_6_25,RES_8_BIT, 0u);
+  qt_enable_rotor (CHANNEL_2, CHANNEL_4, AKS_GROUP_1, 16u, HYST_6_25,RES_8_BIT, 0u);
 
   qt_init_sensing ();
   init_qt_globals ();
-
   init_timer_isr ();
+  pwm_init();
   sei ();
-  
-  /* PORTF is connected to the Buttons, so se configure them as input with pullups */
-  PORTF.DIRCLR = 0xFF;
-  PORTCFG.MPCMASK = 0xFF;
-  PORTF.PIN0CTRL = (PORTF.PIN0CTRL & ~PORT_OPC_gm) | PORT_OPC_PULLUP_gc;
-
-  /* PORTE is connected to the LEDS, so we set this port as output so we can force it high/low */
-  PORTE.DIRSET = 0xFF;
-  PORTE.OUTSET = 0xFF;
-  init_pwm_isr();
-
 }
 
 void
@@ -98,48 +93,33 @@ ISR (TCC0_CCA_vect)
   qt_measure_sensors (time_ms);  
   char s_states = qt_measure_data.qt_touch_status.sensor_states[0];
   if (s_states & (1 << 0)) {  /// Top button
-    ///@TODO: Code to change color change state to prev color
+   if(colour_state != blue)
+      colour_state++;
+    else 
+      colour_state = red;
   }
   if (s_states & (1 << 1)) {  /// Bottom button
-    ///@TODO: Code to change color change state to next color
+    if(colour_state != red)
+      colour_state--;
+    else 
+      colour_state = blue;
   }
-  if (s_states & (1 << 2)) { /// Center rotor
+  if (s_states & (1 << 2)) { /// Left slider
     uint16_t sliderval = qt_measure_data.qt_touch_status.rotor_slider_values[0];
-    sliderval = 0xff - sliderval;
     val = sliderval;
+    switch(colour_state) {
+      case red:
+        pwm_setRed(val);
+      break;
+      case green:
+        pwm_setGreen(val);
+      break;
+      case blue:
+        pwm_setBlue(val);
+      break;
+      default:
+        pwm_setColour(255,255,255);
+      break;
+    }
   }
-  //PORTE.OUT = ~val;
-}
-
-
-
-void
-init_pwm_isr (void)
-{
-  /*Set timer period A to ~25ms */
-  TCD0.PER = 0x23;
-  /*select clock source */
-  TCD0.CTRLA = 4;
-  /*Set Comparre A interrupt to low level */
-  TCD0.INTCTRLA = TC_OVFINTLVL_LO_gc;
-  TCD0.INTCTRLB = 0xff;//TC_CCDINTLVL_LO_gc;
-  /*enable low lever interrupts in power manager interrupt control */
-  PMIC.CTRL |= 1;
-}
-
-/** 
-  Timer0 ISR Routine
-  Triggered every 25ms. Each time it is triggered, it reads the values of the QTouch board sensors.
-  It then calls a function to control the RGB LED based on the inputs.
-**/
-
-ISR (TCD0_CCA_vect) 
-{
-  PORTE.OUT = 0x00; 
-  _delay_ms(1000);
-}
-
-ISR (TCD0_OVF_vect) 
-{
-  PORTE.OUT = 0xFF;
 }

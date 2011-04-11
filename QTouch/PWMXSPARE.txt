@@ -1,0 +1,137 @@
+
+/*! 	
+	\brief A function which effectively creates any colour on the RGB LED, sent in RGB notation
+	\param red 		The red value (0-255) to send to the LED
+	\param green 	The red value (0-255) to send to the LED
+	\param blue 	The red value (0-255) to send to the LED
+	
+*/
+void pwm_sendColor(int red, int green, int blue) {
+	GREEN_PER = green;
+  RED_PER = red;
+  BLUE_PER = blue;
+}
+
+/*! 	
+	\brief Set the RED LED to maximum brightness
+*/
+
+void pwm_maxRed(void) {
+		redR = 255;
+    RED_PER = 255;
+}
+
+/*! 	
+	\brief Increment the red LED by the value set in INCREASE	
+		
+	Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value
+*/
+
+void pwm_incRed(void) {
+	if(redR + INCREASE >= 255) {
+		RED_PER = redR = 255;
+	}
+	else {
+    redR = redR+INCREASE;
+		RED_PER = led_correct[redR];
+	}
+}
+
+/*! 	
+	\brief Decrement the red LED by the value set in INCREASE	
+		
+	Since the red LED is connected to a 10bit pwm, however, it multiplies the result by 4 to provide the correct value
+*/
+void pwm_decRed(void) {
+	if(redR <= INCREASE) 
+		RED_PER = redR = 0;
+	else {
+    redR = redR-INCREASE;
+    RED_PER = led_correct[redR];
+	}
+}
+
+/*! 	
+	\brief Set the RED LED to minimum brightness
+*/
+
+void pwm_minRed(void) {
+    RED_PER = redR = 0;
+}
+
+/*! 	
+	\brief Set the green LED to its maximum brightness
+*/
+void pwm_maxGreen(void) {
+    GREEN_PER = greenR = 255;
+}
+
+/*! 	
+	\brief Increment the green LED by the value set in INCREASE	
+*/
+void pwm_incGreen(void) {
+	if(greenR + INCREASE >= 255) 
+		GREEN_PER = greenR = 255;
+	else {
+    greenR = greenR+INCREASE;
+		GREEN_PER = led_correct[greenR];
+	}
+}
+
+/*! 	
+	\brief Decrement the green LED by the value set in INCREASE	
+*/
+void pwm_decGreen(void) {
+	if(greenR - INCREASE <= 0) 
+    GREEN_PER = greenR = 0;
+	else {
+    greenR = greenR-INCREASE;
+		GREEN_PER = led_correct[greenR];
+	}
+}
+
+/*! 	
+	\brief Set the green LED to minimum brightness
+*/
+void pwm_minGreen(void) {
+    GREEN_PER = greenR = 0;
+}
+
+/*! 	
+	\brief Set the Blue LED to its maximum brightness
+*/
+void pwm_maxBlue(void) {
+    BLUE_PER = blueR = 255;
+}
+
+/*! 	
+	\brief Increment the blue LED by the value set in INCREASE	
+*/
+void pwm_incBlue(void) {
+	if(blueR + INCREASE >= 255) 
+		BLUE_PER = blueR = 255;
+	else {
+    blueR = blueR+INCREASE;
+		BLUE_PER = led_correct[blueR];
+	}
+}
+
+/*! 	
+	\brief Decrement the blue LED by the value set in INCREASE
+*/
+void pwm_decBlue(void) {
+	if(blueR - INCREASE <= 0) 
+		BLUE_PER = blueR = 0;
+	else {
+    blueR = blueR-INCREASE;
+		BLUE_PER = led_correct[blueR];
+	}
+}
+
+
+/*! 	
+	\brief Set the Blue LED to its minimum brightness
+*/
+void pwm_minBlue(void) {
+    BLUE_PER = blueR = 0;
+}

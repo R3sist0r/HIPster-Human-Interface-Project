@@ -11,7 +11,7 @@
 MCU = atxmega128a1
 FORMAT = ihex
 TARGET = main
-SRC = $(TARGET).c clksys_driver.c
+SRC = $(TARGET).c clksys_driver.c pwmX.c
 
 ASRC = qtouch/qt_asm_xmega.S
 
@@ -26,7 +26,7 @@ OBJDUMP = avr-objdump
 GFLAGS = -D_QTOUCH_ -D_ROTOR_SLIDER_ -DQT_NUM_CHANNELS=8 -DSNSK1=A -DSNS1=D -DQT_DELAY_CYCLES=1 
 
 CFLAGS += -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums $(GFLAGS)
-CFLAGS += -Wall -Wstrict-prototypes -Wa,-adhlns=$(<:.c=.lst) -std=gnu99
+CFLAGS += -Wall -Wstrict-prototypes -Wno-char-subscripts -Wa,-adhlns=$(<:.c=.lst) -std=gnu99
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref qtouch/libavrxmega7g1-8qt-k-2rs.a
 ASFLAGS = -Wa,-adhlns=$(<:.S=.lst),-gstabs $(GFLAGS)
 
