@@ -16,9 +16,9 @@
 */
 #define INCREASE  20
 
-#define PWM_PORT PORTE
+#define PWM_PORT PORTF
 
-#define PWM_TC  TCE0
+#define PWM_TC  TCF0
 #define PWM_PER PWM_TC.PER
 #define PWM_CTRLA PWM_TC.CTRLA
 #define PWM_CTRLB PWM_TC.CTRLB
@@ -32,22 +32,24 @@
 #define RED_PWM_EN   TC0_CCCEN_bm
 
 void pwm_init(void);
-void pwm_setRed(char red);
-void pwm_setGreen(char green);
-void pwm_setBlue(char blue);
-void pwm_setColour(char red, char green, char blue);
+void pwm_setRed(uint8_t red);
+void pwm_setGreen(uint8_t green);
+void pwm_setBlue(uint8_t blue);
+void pwm_setColour(uint8_t red, uint8_t green, uint8_t blue);
+void pwm_setBrightness(uint8_t brightness);
 ///Variable used for string conversions during debugging
-char conv_str[10];
+uint8_t conv_str[10];
 
 ///Variable to hold the brightness of the red LED
-char redR = 0;
+uint8_t redR = 0;
 
 ///Variable to hold the brightness of the green LED
-char greenR = 0;		
+uint8_t greenR = 0;		
 
 ///Variable to hold the brightness of the blue LED
-char blueR = 0;		
+uint8_t blueR = 0;		
 
+uint8_t brightFactor = 1;
 /*! 	
 	\brief A function which initialises the pwm module of the AVR
 
@@ -64,8 +66,8 @@ char blueR = 0;
 */
 void pwm_init(void) {
 
-  PWM_PORT.DIRSET = 0xFF;
-  PWM_PORT.OUTSET = 0xFF;
+  PWM_PORT.DIRSET = 0x07;
+  PWM_PORT.OUTSET = 0x00;
   
   PWM_PER = 0xFF;   //Set the period to 0xFF, effectively creating an 8bit PWM
   PWM_CTRLB = TC_WGMODE_SS_gc;  //Set the timer up for PWM generation mode
@@ -73,34 +75,44 @@ void pwm_init(void) {
 
 	//************ Timer/Counter E0A PWM setup (Green) ****************//
   PWM_CTRLB |= GREEN_PWM_EN;     //Enable the green LED
-  GREEN_PWM = 0xFF;              //Set the green LED's brightness (inverse)
+  GREEN_PWM = 0x00;              //Set the green LED's brightness (inverse)
 	//************ Timer/Counter E0B PWM setup (Blue) ****************//	
   PWM_CTRLB |= BLUE_PWM_EN;     //Enable the blue LED
-  BLUE_PWM = 0xFF;              //Set the blue LED's brightness (inverse)
+  BLUE_PWM = 0x00;              //Set the blue LED's brightness (inverse)
 	//************ Timer/Counter E0C PWM setup (Red) ****************//	
   PWM_CTRLB |= RED_PWM_EN;        //Enable the red LED
-  RED_PWM = 0xFF;                 //Set the red LED's brightness (inverse)
+  RED_PWM = 0x00;                 //Set the red LED's brightness (inverse)
   
   PMIC.CTRL |= 1;
   sei();
 }
 
-void pwm_setRed(char red) {
-  RED_PWM = redR = ~red;
+void pwm_setRed(uint8_t red) {
+  redR = red;
+  RED_PWM = red/brightFactor;
 }
 
 
-void pwm_setGreen(char green) {
-  GREEN_PWM = greenR = ~green;
+void pwm_setGreen(uint8_t green) {
+  greenR = green;
+  GREEN_PWM = green/brightFactor;
 }
 
 
-void pwm_setBlue(char blue) {
-  BLUE_PWM = blueR = ~blue;
+void pwm_setBlue(uint8_t blue) {
+  blueR = blue;
+  BLUE_PWM = blue/brightFactor;
 }
 
-void pwm_setColour(char red, char green, char blue) {
-  RED_PWM = redR = ~red;
-  GREEN_PWM = greenR = ~green;
-  BLUE_PWM = blueR = ~blue;
+void pwm_setColour(uint8_t red, uint8_t green, uint8_t blue) {
+  RED_PWM = redR = red;
+  GREEN_PWM = greenR = green;
+  BLUE_PWM = blueR = blue;
+}
+
+void pwm_setBrightness(uint8_t brightness) {
+  brightFactor = 255/brightness;
+  RED_PWM = redR/brightFactor;
+  GREEN_PWM = greenR/brightFactor;
+  BLUE_PWM = blueR/brightFactor; // blueR = 
 }
