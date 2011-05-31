@@ -23,7 +23,7 @@ AVRDUDE = avrdude
 
 # Compiler/Linker flags
 CFLAGS += -O$(Optimise) -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
-CFLAGS += -Wall -Werror -Wstrict-prototypes -Wa,-adhlns=$(<:.c=.lst) -std=gnu99
+CFLAGS += -Wall -Wstrict-prototypes -Wa,-adhlns=$(<:.c=.lst) -std=gnu99
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 ALL_CFLAGS = -mmcu=$(MCU) -I. $(CFLAGS)
 
@@ -31,8 +31,7 @@ ALL_CFLAGS = -mmcu=$(MCU) -I. $(CFLAGS)
 OBJ = $(SRC:.c=.o) 
 
 # Programming support using avrdude
-AVRDUDE_FLAGS = -p $(MCU) -P lpt1 -c usbasp  -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0x01:m  -F
-#-U lfuse:w:0xff:m -U hfuse:w:0xdf:m
+AVRDUDE_FLAGS = -p $(MCU) -P lpt1 -c usbasp -U lfuse:w:0xe2:m -U hfuse:w:0xdf:m -U efuse:w:0x01:m -F
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 
 # Targets for building
