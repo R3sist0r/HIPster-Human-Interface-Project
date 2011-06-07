@@ -111,7 +111,7 @@ void pwm_setColour(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void pwm_setBrightness(uint8_t brightness) {
-  brightFactor = 255/brightness;
+  brightFactor = 255/(brightness+1);
   RED_PWM = redR/brightFactor;
   GREEN_PWM = greenR/brightFactor;
   BLUE_PWM = blueR/brightFactor; // blueR = 

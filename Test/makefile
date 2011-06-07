@@ -23,7 +23,7 @@ AVRDUDE = avrdude
 
 # Compiler/Linker flags
 CFLAGS += -O$(Optimise) -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
-CFLAGS += -Wall -Wstrict-prototypes -Wa,-adhlns=$(<:.c=.lst) -std=gnu99
+CFLAGS += -Wall -Wno-char-subscripts -Wstrict-prototypes -Wa,-adhlns=$(<:.c=.lst) -std=gnu99
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 ALL_CFLAGS = -mmcu=$(MCU) -I. $(CFLAGS)
 

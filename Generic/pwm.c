@@ -17,6 +17,16 @@
 */
 #define INCREASE 20		
 
+
+#define SET_GREEN_PWM(_GREEN) {OCR0A = ~_GREEN; greenR = _GREEN;}
+#define SET_BLUE_PWM(_BLUE) {OCR2A = ~_BLUE; blueR = _BLUE;}
+#define SET_RED_PWM(_RED) {OCR1A = (16*_RED); redR = _RED;}
+
+  
+#define SET_GREEN_PWMH(_GREEN) {OCR0A = 255-_GREEN; }
+#define SET_BLUE_PWMH(_BLUE) {OCR2A = 255-_BLUE; }
+#define SET_RED_PWMH(_RED) {OCR1A = (16*_RED); }
+
 ///Variable used for string conversions during debugging
 char conv_str[10];
 
@@ -24,10 +34,12 @@ char conv_str[10];
 char redR = 0;
 
 ///Variable to hold the brightness of the green LED (0xFF, as that register is inverse)
-char greenR = 0xFF;		
+char greenR = 0x00;		
 
 ///Variable to hold the brightness of the blue LED (0xFF, as that register is inverse)
-char blueR = 0xFF;		
+char blueR = 0x00;		
+
+char brightFactor = 1;
 
 /*! 	
 	\brief A function which initialises the pwm module of the AVR
@@ -73,13 +85,22 @@ void pwm_init(void) {
 	
 */
 void pwm_sendColor(int red, int green, int blue) {
-	OCR0A = ~green;
-	
-	int i = red;
-	i = i*16;
-	OCR1A = i;
+	SET_RED_PWM(led_correct[red]);
+	SET_GREEN_PWM(led_correct[green]);
+	SET_BLUE_PWM(led_correct[blue]);
+}
 
-	OCR2A = ~blue;
+
+void pwm_sendRed(char red) {
+  SET_RED_PWM(led_correct[red]);
+}
+
+void pwm_sendGreen(char green) {
+  SET_GREEN_PWM(led_correct[green]);
+}
+
+void pwm_sendBlue(char blue) {
+  SET_BLUE_PWM(led_correct[blue]);
 }
 
 /*! 	
@@ -136,18 +157,20 @@ void pwm_minRed(void) {
 */
 void pwm_maxGreen(void) {
     OCR0A = 0;
-    greenR = 0;
+    greenR = 255;
 }
 
 /*! 	
 	\brief Increment the green LED by the value set in INCREASE	
 */
 void pwm_incGreen(void) {
-	if(greenR - INCREASE <= 0) 
-		OCR0A = greenR = 0;
+	if(greenR + INCREASE >= 255) {
+		OCR0A = 0;
+		greenR = 255;
+	}
 	else {
-		OCR0A = led_correct[greenR - INCREASE];
-		greenR = greenR-INCREASE;
+		OCR0A = led_correct[~(greenR + INCREASE)];
+		greenR = greenR+INCREASE;
 	}
 }
 
@@ -155,11 +178,13 @@ void pwm_incGreen(void) {
 	\brief Decrement the green LED by the value set in INCREASE	
 */
 void pwm_decGreen(void) {
-	if(greenR + INCREASE >= 255) 
-		OCR0A = greenR = 255;
+	if(greenR - INCREASE <= 0) {
+		OCR0A = 255;
+		greenR = 0;
+	}
 	else {
-		OCR0A = led_correct[greenR + INCREASE];
-		greenR = greenR+INCREASE;
+		OCR0A = led_correct[~(greenR - INCREASE)];
+		greenR = greenR-INCREASE;
 	}
 }
 
@@ -168,7 +193,7 @@ void pwm_decGreen(void) {
 */
 void pwm_minGreen(void) {
     OCR0A = 255;
-    greenR = 255;
+    greenR = 0;
 }
 
 /*! 	
@@ -176,18 +201,20 @@ void pwm_minGreen(void) {
 */
 void pwm_maxBlue(void) {
     OCR2A = 0;
-    blueR = 0;
+    blueR = 255;
 }
 
 /*! 	
 	\brief Increment the blue LED by the value set in INCREASE	
 */
 void pwm_incBlue(void) {
-	if(blueR - INCREASE <= 0) 
-		OCR2A = blueR = 0;
+	if(blueR + INCREASE >= 255) {
+		OCR2A = 0;
+		blueR = 255;
+	}
 	else {
-		OCR2A = led_correct[blueR - INCREASE];
-		blueR = blueR-INCREASE;
+		OCR2A = led_correct[~(blueR + INCREASE)];
+		blueR = blueR+INCREASE;
 	}
 }
 
@@ -195,11 +222,13 @@ void pwm_incBlue(void) {
 	\brief Decrement the blue LED by the value set in INCREASE
 */
 void pwm_decBlue(void) {
-	if(blueR + INCREASE >= 255) 
-		OCR2A = blueR = 255;
+	if(blueR - INCREASE <= 0) {
+		OCR2A = 255;
+		blueR = 0;
+	}
 	else {
-		OCR2A = led_correct[blueR + INCREASE];
-		blueR = blueR+INCREASE;
+		OCR2A = led_correct[~(blueR - INCREASE)];
+		blueR = blueR-INCREASE;
 	}
 }
 
@@ -209,7 +238,16 @@ void pwm_decBlue(void) {
 */
 void pwm_minBlue(void) {
     OCR2A = 255;
-    blueR = 255;
+    blueR = 0;
+}
+
+void pwm_setBrightness(uint8_t brightness) {
+  if(brightness == 0)
+    brightness = 1;
+  brightFactor = 255/brightness;
+  SET_RED_PWMH(led_correct[redR/brightFactor]);
+  SET_GREEN_PWMH(led_correct[greenR/brightFactor]);
+  SET_BLUE_PWMH(led_correct[blueR/brightFactor]);
 }
 
 /*! 	
@@ -268,3 +306,4 @@ void pwm_change(char kbchar) {
 	}
 	uart_tx(kbchar);
 }
+
