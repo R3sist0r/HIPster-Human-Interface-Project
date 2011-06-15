@@ -1,0 +1,11 @@
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="2">
+            <File firstVisibleLine="86" xOffset="0" scrollWidth="880" startPos="2352" endPos="2352" selMode="0" lang="C" encoding="-1" filename="C:\HiTechDev\QTouch\main.c" />
+            <File firstVisibleLine="6335" xOffset="0" scrollWidth="752" startPos="280815" endPos="280820" selMode="0" lang="C++" encoding="-1" filename="C:\WinAVR-20100110\avr\include\avr\iox128a1.h" />
+            <File firstVisibleLine="67" xOffset="0" scrollWidth="944" startPos="1684" endPos="1684" selMode="0" lang="C" encoding="-1" filename="C:\HiTechDev\QTouch\pwmX.c" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="768" startPos="243" endPos="243" selMode="0" lang="Makefile" encoding="-1" filename="C:\HiTechDev\QTouch\makefile" />
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>

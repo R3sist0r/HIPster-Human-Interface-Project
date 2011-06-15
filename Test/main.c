@@ -30,11 +30,6 @@
 */
 
 void init_all() {
-  DDRC |= _BV(PC5);
-  PORTC |= _BV(PC5);
-  _delay_ms(5000);
-  PORTC &= !_BV(PC5);
-
 	uart_init(ISR_STATE);		
 	kb_init();			
 	pwm_init();			
@@ -51,7 +46,8 @@ void init_all() {
 */
 int main() {
 	init_all();
-  while(1) {
+  pwm_sendColor(125,30,90);
+	while(1) {
 		continue;
 	}
 }

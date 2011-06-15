@@ -30,12 +30,8 @@
 */
 
 void init_all() {
-  DDRC |= _BV(PC5);
-  PORTC |= _BV(PC5);
-  _delay_ms(5000);
-  PORTC &= !_BV(PC5);
-
-	uart_init(ISR_STATE);		
+	uart_init(ISR_STATE);
+	adc_init();
 	kb_init();			
 	pwm_init();			
 	uart_tx_str("Booted up correctly!\r\n");	
@@ -51,6 +47,8 @@ void init_all() {
 */
 int main() {
 	init_all();
+	adc_startConversion();
+	pwm_sendColor(0,0,0);
   while(1) {
 		continue;
 	}

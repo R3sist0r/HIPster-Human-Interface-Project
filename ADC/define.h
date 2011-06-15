@@ -27,3 +27,10 @@ void pwm_decGreen(void);
 void pwm_incBlue(void);
 void pwm_decBlue(void);
 void pwm_change(char kbchar);
+void pwm_sendRed(char red);
+void pwm_sendGreen(char green);
+void pwm_sendBlue(char blue);
+void pwm_setBrightness(uint8_t brightness);
+
+void adc_init(void);
+void adc_startConversion(void);
