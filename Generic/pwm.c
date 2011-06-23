@@ -11,6 +11,7 @@
 
 #include "define.h"
 #include "led.h"
+#include "matrix.h"
 
 /*! \def INCREASE
 	\brief This variable controls the step size of each brightness up/down recursion.
@@ -26,7 +27,8 @@
 #define SET_GREEN_PWMH(_GREEN) {OCR0A = 255-_GREEN; }
 #define SET_BLUE_PWMH(_BLUE) {OCR2A = 255-_BLUE; }
 #define SET_RED_PWMH(_RED) {OCR1A = (16*_RED); }
-
+#define top(_OUT, _VALUE, _ADD) {if((_VALUE+_ADD)>255) _OUT=255; else _OUT=_VALUE+_ADD;}
+#define bottom(_OUT,_VALUE, _SUBTRACT) {if((_VALUE-_SUBTRACT)<0) _OUT=255; else _OUT=_VALUE-_SUBTRACT;}
 ///Variable used for string conversions during debugging
 char conv_str[10];
 
@@ -169,7 +171,7 @@ void pwm_incGreen(void) {
 		greenR = 255;
 	}
 	else {
-		OCR0A = led_correct[~(greenR + INCREASE)];
+		OCR0A = led_correct[255-(greenR + INCREASE)];
 		greenR = greenR+INCREASE;
 	}
 }
@@ -183,7 +185,7 @@ void pwm_decGreen(void) {
 		greenR = 0;
 	}
 	else {
-		OCR0A = led_correct[~(greenR - INCREASE)];
+		OCR0A = led_correct[255-(greenR - INCREASE)];
 		greenR = greenR-INCREASE;
 	}
 }
@@ -213,7 +215,7 @@ void pwm_incBlue(void) {
 		blueR = 255;
 	}
 	else {
-		OCR2A = led_correct[~(blueR + INCREASE)];
+		OCR2A = led_correct[255-(blueR + INCREASE)];
 		blueR = blueR+INCREASE;
 	}
 }
@@ -227,7 +229,7 @@ void pwm_decBlue(void) {
 		blueR = 0;
 	}
 	else {
-		OCR2A = led_correct[~(blueR - INCREASE)];
+		OCR2A = led_correct[255-(blueR - INCREASE)];
 		blueR = blueR-INCREASE;
 	}
 }
@@ -304,6 +306,85 @@ void pwm_change(char kbchar) {
 		default:
 		break;
 	}
-	uart_tx(kbchar);
 }
 
+void pwm_select(uint8_t color, enum matrixState_t action) {
+    static uint8_t redTimeout, greenTimeout, blueTimeout, brightTimeout;
+    switch(color) {
+        case RED_ROW:
+            if(redTimeout == 0) {
+                redTimeout = 10;
+                switch(action) {
+                    case UP:
+                        pwm_incRed();
+                    break;
+                    case DOWN:
+                        pwm_decRed();
+                    break;
+                    case OFF:
+                        pwm_minRed();
+                    break;
+                }
+            }
+            redTimeout--;
+        break;
+        case GREEN_ROW:
+            if(greenTimeout == 0) {
+                greenTimeout = 10;
+                switch(action) {
+                    case UP:
+                        pwm_incGreen();
+                    break;
+                    case DOWN:
+                        pwm_decGreen();
+                    break;
+                    case OFF:
+                        pwm_minGreen();
+                    break;
+                }
+            }
+            greenTimeout--;
+        break;
+        case BLUE_ROW:
+            if(blueTimeout == 0) {
+                blueTimeout = 10;
+                switch(action) {
+                    case UP:
+                        pwm_incBlue();
+                    break;
+                    case DOWN:
+                        pwm_decBlue();
+                    break;
+                    case OFF:
+                        pwm_minBlue();
+                    break;
+                }
+            }
+            blueTimeout--;
+        break;
+        case BRIGHT_ROW:
+            if(brightTimeout == 0) {
+                brightTimeout = 10;
+                switch(action) {
+                    case UP:
+                        if((255/brightFactor)>=255-INCREASE)
+                            pwm_setBrightness(255);
+                        else 
+                            pwm_setBrightness((255/brightFactor)+INCREASE);
+                    break;
+                    case DOWN:
+                        if((255/brightFactor)<INCREASE)
+                            pwm_setBrightness(0);
+                        else 
+                            pwm_setBrightness((255/brightFactor)-INCREASE);
+                    break;
+                    case OFF:
+                        pwm_setBrightness(0);
+                    break;
+                }
+            }
+            brightTimeout--;
+        break;
+    }
+}
+        
