@@ -1,0 +1,112 @@
+[33mcommit 8ff5c3e6b21fb148c8c7b7edbbe8aed6b53200a7[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 22:40:42 2011 +1300
+
+    Added all
+
+[33mcommit 380ef05a7d40936632aed49a669e388b3d4e301b[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 22:40:25 2011 +1300
+
+    Changed the names of some of the commands to make them more distinct
+
+[33mcommit e14873e29e80d6660c59bda8c4ad389f2bffc6e6[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 22:39:26 2011 +1300
+
+    Added AVR code to setup UART and recieve commands from the PYTHON voice control script
+
+[33mcommit 23ee27c5040194db0a1dc2537866a6aa252c56bc[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 22:37:37 2011 +1300
+
+    Added more commands in the switch() statement to allow for more options
+
+[33mcommit 713954019451966496f797c4322f0b0a59214c7a[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 22:19:36 2011 +1300
+
+    Changes to allow preprocessor interrupt control
+
+[33mcommit c2d3c20a72810255318064faadd923bf4cf6779b[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 22:18:49 2011 +1300
+
+    Added a preprocessor #define option for including a UART RX interrupt
+
+[33mcommit d2f84cfe393a7a9d4435ad9dbb7e2458c08a0937[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 21:43:18 2011 +1300
+
+    Small renames/moves
+
+[33mcommit 272f31d84e6c1cf84d0cf65714cc10a990441740[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 21:42:07 2011 +1300
+
+    Made a few changes, mostly to obey DRY
+
+[33mcommit 3f6509e705449cddcc984df04a92ffc91e8bd364[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Wed Mar 30 21:40:30 2011 +1300
+
+    Moved the files which will be required in all modules to the Generic/ folder to obey the DRY principle
+
+[33mcommit 4ec518cc909d0503a3009050fd255e3e2246e539[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Tue Mar 29 18:05:08 2011 +1300
+
+    Added a voice control section to the project, and this is the PYTHON code for it.  preBeta
+
+[33mcommit 23ffb210248b7bd2bac165eeb5f1d95df56407a2[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 21:42:55 2011 +1300
+
+    Added the doxygen created documentation
+
+[33mcommit e2d56dc9032ecda5936a90b187ebc771a9d38ecf[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 21:42:13 2011 +1300
+
+    Added doxygen header to the led.h file
+
+[33mcommit a58099ff669fd9650f6adf4e745079010eccee9c[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 21:41:44 2011 +1300
+
+    Added doxygen comments to the pwm.c file
+
+[33mcommit 8d934cef9ddb52a8105b65960a5bbae10b6ae6f6[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 21:41:19 2011 +1300
+
+    Added doxygen comments to the main.c file
+
+[33mcommit 700f3a2825cfb9302871bc459951e403d221e6f7[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 15:58:49 2011 +1300
+
+    Update
+    Just updating all files, ready for pushing to remote repos
+
+[33mcommit 0fb940a710ea6ecd2fb65170a0c4f090ad070a2d[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 13:55:16 2011 +1300
+
+    Updated README.txt
+
+[33mcommit 3c79c9c92c8c74cbd9d63839fb564e7c44cb733c[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 13:44:00 2011 +1300
+
+    Add README
+    Just added a README file to reduce ambiguity
+    
+    Signed-off-by: Reuben Posthuma <reuben.posthuma@gmail.com>
+
+[33mcommit 2da4dc9925b18d4706fb5c45f8778b9d7327eb4c[m
+Author: Reuben Posthuma <reuben.posthuma@gmail.com>
+Date:   Mon Mar 28 13:41:17 2011 +1300
+
+    Adding all files.
+    This module has already been developed, so don't expect too many tracked changes...
