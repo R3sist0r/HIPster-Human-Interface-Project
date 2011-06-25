@@ -11,13 +11,14 @@
 
 #include "define.h"
 #include "led.h"
-#include "matrix.h"
+#ifdef _MATRIX_
+	#include "matrix.h"
+#endif
 
+#include "pwm.h"
 /*! \def INCREASE
-	\brief This variable controls the step size of each brightness up/down recursion.
+	\brief This define controls the step size of each brightness up/down recursion.
 */
-#define INCREASE 20		
-
 
 #define SET_GREEN_PWM(_GREEN) {OCR0A = ~_GREEN; greenR = _GREEN;}
 #define SET_BLUE_PWM(_BLUE) {OCR2A = ~_BLUE; blueR = _BLUE;}
@@ -307,84 +308,90 @@ void pwm_change(char kbchar) {
 		break;
 	}
 }
+#ifdef _MATRIX_
 
-void pwm_select(uint8_t color, enum matrixState_t action) {
-    static uint8_t redTimeout, greenTimeout, blueTimeout, brightTimeout;
-    switch(color) {
-        case RED_ROW:
-            if(redTimeout == 0) {
-                redTimeout = 10;
-                switch(action) {
-                    case UP:
-                        pwm_incRed();
-                    break;
-                    case DOWN:
-                        pwm_decRed();
-                    break;
-                    case OFF:
-                        pwm_minRed();
-                    break;
-                }
-            }
-            redTimeout--;
-        break;
-        case GREEN_ROW:
-            if(greenTimeout == 0) {
-                greenTimeout = 10;
-                switch(action) {
-                    case UP:
-                        pwm_incGreen();
-                    break;
-                    case DOWN:
-                        pwm_decGreen();
-                    break;
-                    case OFF:
-                        pwm_minGreen();
-                    break;
-                }
-            }
-            greenTimeout--;
-        break;
-        case BLUE_ROW:
-            if(blueTimeout == 0) {
-                blueTimeout = 10;
-                switch(action) {
-                    case UP:
-                        pwm_incBlue();
-                    break;
-                    case DOWN:
-                        pwm_decBlue();
-                    break;
-                    case OFF:
-                        pwm_minBlue();
-                    break;
-                }
-            }
-            blueTimeout--;
-        break;
-        case BRIGHT_ROW:
-            if(brightTimeout == 0) {
-                brightTimeout = 10;
-                switch(action) {
-                    case UP:
-                        if((255/brightFactor)>=255-INCREASE)
-                            pwm_setBrightness(255);
-                        else 
-                            pwm_setBrightness((255/brightFactor)+INCREASE);
-                    break;
-                    case DOWN:
-                        if((255/brightFactor)<INCREASE)
-                            pwm_setBrightness(0);
-                        else 
-                            pwm_setBrightness((255/brightFactor)-INCREASE);
-                    break;
-                    case OFF:
-                        pwm_setBrightness(0);
-                    break;
-                }
-            }
-            brightTimeout--;
-        break;
-    }
-}
-        
+	void pwm_select(uint8_t color, enum matrixState_t action) {
+		static uint8_t redTimeout, greenTimeout, blueTimeout, brightTimeout;
+		switch(color) {
+			case RED_ROW:
+				if(redTimeout == 0) {
+					redTimeout = 10;
+					switch(action) {
+						case UP:
+							pwm_incRed();
+						break;
+						case DOWN:
+							pwm_decRed();
+						break;
+						case OFF:
+							pwm_minRed();
+						break;
+						case NONE: break;
+					}
+				}
+				redTimeout--;
+			break;
+			case GREEN_ROW:
+				if(greenTimeout == 0) {
+					greenTimeout = 10;
+					switch(action) {
+						case UP:
+							pwm_incGreen();
+						break;
+						case DOWN:
+							pwm_decGreen();
+						break;
+						case OFF:
+							pwm_minGreen();
+						break;
+						case NONE: break;
+					}
+				}
+				greenTimeout--;
+			break;
+			case BLUE_ROW:
+				if(blueTimeout == 0) {
+					blueTimeout = 10;
+					switch(action) {
+						case UP:
+							pwm_incBlue();
+						break;
+						case DOWN:
+							pwm_decBlue();
+						break;
+						case OFF:
+							pwm_minBlue();
+						break;
+						case NONE: break;
+					}
+				}
+				blueTimeout--;
+			break;
+			case BRIGHT_ROW:
+				if(brightTimeout == 0) {
+					brightTimeout = 10;
+					switch(action) {
+						case UP:
+							if((255/brightFactor)>=255-INCREASE)
+								pwm_setBrightness(255);
+							else 
+								pwm_setBrightness((255/brightFactor)+(INCREASE/2));
+						break;
+						case DOWN:
+							if((255/brightFactor)<INCREASE)
+								pwm_setBrightness(0);
+							else 
+								pwm_setBrightness((255/brightFactor)-2);
+						break;
+						case OFF:
+							pwm_setBrightness(0);
+						break;
+						case NONE: break;
+					}
+				}
+				brightTimeout--;
+			break;
+		}
+	}
+
+#endif

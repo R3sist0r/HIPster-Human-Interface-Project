@@ -13,7 +13,7 @@
 */
 
 #include "define.h"
-
+#include "matrix.h"
 /*! 	
 	\brief A function which initialises all required hardware 
 
@@ -31,7 +31,9 @@
 
 void init_all() {
 	matrix_init();			
-	pwm_init();			
+	pwm_init();		
+	uart_init(0);
+	uart_tx_str("Working");
 	sei();			
 }
 

@@ -3,12 +3,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <avr/interrupt.h>
+#include "../../Generic/uart.h"
+#include "../../Generic/pwm.h"
 
 #define ISR_STATE 1
 
-void uart_tx( unsigned int data );
-void uart_tx_str (char str[]);
-void uart_init(_Bool isr);
 
 int main(void);
 void init_all(void);
