@@ -32,7 +32,7 @@
 void init_all() {
 	matrix_init();			
 	pwm_init();			
-	//sei();			
+	sei();			
 }
 
 /*! 	
@@ -45,7 +45,7 @@ int main() {
 	init_all();
     //PORTC |= _BV(PC4);
 	while(1) {
-        _delay_ms(20);
+        _delay_ms(5);
         matrix_scan();  
         matrix_action();
 	}
