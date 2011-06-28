@@ -308,8 +308,7 @@ void pwm_change(char kbchar) {
 }
 #ifdef _MATRIX_
 
-	void pwm_select(uint8_t color, enum matrixState_t action) {
-		char uartString[10];							
+	void pwm_select(uint8_t color, enum matrixState_t action) {							
 		static uint8_t redTimeout, greenTimeout, blueTimeout, brightTimeout;
 		switch(color) {
 			case RED_ROW:
@@ -371,13 +370,8 @@ void pwm_change(char kbchar) {
 					brightTimeout = 10;
 					switch(action) {
 						case UP:
-							
-							uart_tx_str(ltoa(brightFactor, uartString, 10));
-							uart_tx_str("\r\n");
-								
 							if(brightFactor>200){
 								pwm_setBrightness(255);
-								uart_tx_str("t");
 							}
 							else {
 								uint8_t temp = (brightFactor+10);
@@ -387,7 +381,6 @@ void pwm_change(char kbchar) {
 						case DOWN:
 							if((brightFactor-INCREASE)<INCREASE) {
 								pwm_setBrightness(0);
-								uart_tx_str("b");
 							}
 							else  {
 								uint8_t temp = (brightFactor-INCREASE);
