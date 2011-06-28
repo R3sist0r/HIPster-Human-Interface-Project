@@ -42,7 +42,7 @@ char greenR = 0x00;
 ///Variable to hold the brightness of the blue LED (0xFF, as that register is inverse)
 char blueR = 0x00;		
 
-char brightFactor = 1;
+uint8_t brightFactor = 256;
 
 /*! 	
 	\brief A function which initialises the pwm module of the AVR
@@ -245,12 +245,10 @@ void pwm_minBlue(void) {
 }
 
 void pwm_setBrightness(uint8_t brightness) {
-  if(brightness == 0)
-    brightness = 1;
-  brightFactor = 255/brightness;
-  SET_RED_PWMH(led_correct[redR/brightFactor]);
-  SET_GREEN_PWMH(led_correct[greenR/brightFactor]);
-  SET_BLUE_PWMH(led_correct[blueR/brightFactor]);
+  brightFactor = brightness;
+  SET_RED_PWMH(led_correct[(uint8_t)(redR*brightFactor/256)]);
+  SET_GREEN_PWMH(led_correct[(uint8_t)(greenR*brightFactor/256)]);
+  SET_BLUE_PWMH(led_correct[(uint8_t)(blueR*brightFactor/256)]);
 }
 
 /*! 	
@@ -311,6 +309,7 @@ void pwm_change(char kbchar) {
 #ifdef _MATRIX_
 
 	void pwm_select(uint8_t color, enum matrixState_t action) {
+		char uartString[10];							
 		static uint8_t redTimeout, greenTimeout, blueTimeout, brightTimeout;
 		switch(color) {
 			case RED_ROW:
@@ -372,16 +371,28 @@ void pwm_change(char kbchar) {
 					brightTimeout = 10;
 					switch(action) {
 						case UP:
-							if((255/brightFactor)>=255-INCREASE)
+							
+							uart_tx_str(ltoa(brightFactor, uartString, 10));
+							uart_tx_str("\r\n");
+								
+							if(brightFactor>200){
 								pwm_setBrightness(255);
-							else 
-								pwm_setBrightness((255/brightFactor)+(INCREASE/2));
+								uart_tx_str("t");
+							}
+							else {
+								uint8_t temp = (brightFactor+10);
+								pwm_setBrightness(temp);
+							}
 						break;
 						case DOWN:
-							if((255/brightFactor)<INCREASE)
+							if((brightFactor-INCREASE)<INCREASE) {
 								pwm_setBrightness(0);
-							else 
-								pwm_setBrightness((255/brightFactor)-2);
+								uart_tx_str("b");
+							}
+							else  {
+								uint8_t temp = (brightFactor-INCREASE);
+								pwm_setBrightness(temp);
+							}
 						break;
 						case OFF:
 							pwm_setBrightness(0);
